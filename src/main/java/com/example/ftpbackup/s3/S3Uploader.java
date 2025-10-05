@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.S3ClientBuilder;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 
@@ -23,7 +24,7 @@ public final class S3Uploader implements AutoCloseable {
     }
 
     private S3Client buildClient(TransferConfig config) {
-        S3Client.Builder builder = S3Client.builder()
+        S3ClientBuilder builder = S3Client.builder()
                 .credentialsProvider(DefaultCredentialsProvider.create());
         config.region().ifPresent(builder::region);
         return builder.build();
